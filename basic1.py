@@ -6,7 +6,8 @@ while (cap.isOpened()):
     check , frame = cap.read() #รับภาพจากกล้อง frame ต่อ frame
     
     if check == True:#checkว่าวีดีโอยังเล่นอยู่รึเปล่า
-        cv2.imshow("Output",frame)
+        gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+        cv2.imshow("Output",gray)
 
         if cv2.waitKey(1) & 0xff == ord("e"):#กดeเพื่อปิดvideo
             break
