@@ -1,10 +1,16 @@
 import cv2
-img = cv2.imread("D:/2023/opencv/cv_1/opencv_python/image/cat.jpg",0)
-imgresize = cv2.resize(img,(400,400))
 
-cv2.imshow("My Cat",imgresize)
+cap = cv2.VideoCapture(0)
 
-cv2.imwrite("output.jpg",imgresize)
+while (True):
+    chack , frame = cap.read()#รับภาพจากกล้องframe : frame
+    cv2.imshow("Output",frame)
 
-cv2.waitKey(0)
+    if cv2.waitKey(1) & 0xff == ord("e"):#กดeเพื่อปิดกล้อง
+        break
+
+
+cap.release()#เครียแรม
 cv2.destroyAllWindows()
+
+
