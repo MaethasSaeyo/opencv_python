@@ -1,21 +1,11 @@
 import cv2
+img = cv2.imread("D:/2023/opencv/cv_1/opencv_python/image/cat.jpg")
+imgresize = cv2.resize(img,(400,400))
 
-cap = cv2.VideoCapture(0)
-fourcss = cv2.VideoWriter_fourcc(*'XVID')
-result = cv2.VideoWriter("output.avi",fourcss,20.00,(640,480))
+#วาดเส้นตรง
+#line(ภาพ,จุดเริ่มต้น(x,y),จุดสุดท้าย(x,y),สี(BGR),ความหนา)
+cv2.arrowedLine(imgresize,(0,200),(150,200),(0,0,255),5)
 
-while (cap.isOpened()):
-    check , frame = cap.read() #รับภาพจากกล้อง frame ต่อ frame
-    
-    if check == True:#checkว่าวีดีโอยังเล่นอยู่รึเปล่า
-       
-        cv2.imshow("Output",frame)
-        result.write(frame)
-        if cv2.waitKey(1) & 0xff == ord("e"):#กดeเพื่อปิดvideo
-            break
-    
-result.release()
-cap.release()#เครียแรม
-cv2.destroyAllWindows()
-
-
+cv2.imshow("Outpen",imgresize)#แสดงผลภาพ
+cv2.waitKey(0)#delay
+cv2.destroyAllWindows()#คืนทรัพร์ยากรให้windows
