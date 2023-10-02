@@ -1,18 +1,20 @@
+#Mouse Event
 import cv2
-import datetime as dt
-cap = cv2.VideoCapture(0)
+img = cv2.imread("output.jpg")
 
-while (cap.isOpened()):
-    check , frame = cap.read() #รับภาพจากกล้อง frame ต่อ frame
-    
-    if check == True:#checkว่าวีดีโอยังเล่นอยู่รึเปล่า
-        currenDate = str(dt.datetime.now())
-        cv2.putText(frame,currenDate,(10,30),1,1,(0,0,0),1)
-        cv2.imshow("Output",frame)
-        
-        if cv2.waitKey(1) & 0xff == ord("e"):#กดeเพื่อปิดvideo
-            break
-    else:
-        break
-cap.release()#เครียแรม
-cv2.destroyAllWindows()
+def click(event,x,y,flags,param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        text = str(x)+","+str(y)
+        cv2.putText(img,text,(x,y),1,1,(0,0,255,),2)
+        cv2.imshow("Output",img)
+
+
+
+cv2.imshow("Output",img)#แสดงผลภาพ
+
+#ทำงานกับmouse
+cv2.setMouseCallback("Output",click)
+
+
+cv2.waitKey(delay=0)
+cv2.destroyAllWindows()#คืนทรัพร์ยากรให้windows
