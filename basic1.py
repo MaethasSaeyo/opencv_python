@@ -1,19 +1,20 @@
 import cv2
 
-cap = cv2.VideoCapture("D:/2023/opencv/cv_1/opencv_python/image/Video (1).mp4")
+cap = cv2.VideoCapture(0)
+fourcss = cv2.VideoWriter_fourcc(*'XVID')
+result = cv2.VideoWriter("output.avi",fourcss,20.00,(640,480))
 
 while (cap.isOpened()):
     check , frame = cap.read() #รับภาพจากกล้อง frame ต่อ frame
     
     if check == True:#checkว่าวีดีโอยังเล่นอยู่รึเปล่า
-        gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-        cv2.imshow("Output",gray)
-
+       
+        cv2.imshow("Output",frame)
+        result.write(frame)
         if cv2.waitKey(1) & 0xff == ord("e"):#กดeเพื่อปิดvideo
             break
-    else:
-        break
-
+    
+result.release()
 cap.release()#เครียแรม
 cv2.destroyAllWindows()
 
