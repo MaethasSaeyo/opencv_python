@@ -1,5 +1,6 @@
 #Mouse Event
 import cv2
+import numpy as np
 img = cv2.imread("image/cat.jpg")
 imgresize = cv2.resize(img,(700,700))
 def click(event,x,y,flags,param):
@@ -7,9 +8,9 @@ def click(event,x,y,flags,param):
         blue = imgresize[y,x,0]
         green = imgresize[y,x,1]
         red = imgresize[y,x,2]
-        text = "BGR = "+str(blue)+","+str(green)+","+str(red)
-        cv2.putText(imgresize,text,(x,y),1,1,(0,0,255,),2)
-        cv2.imshow("Output",imgresize)
+        imgcolor = np.zeros([300,300,3],np.uint8)
+        imgcolor[:] = [blue,green,red]
+        cv2.imshow("Result",imgcolor)
 
 
 
