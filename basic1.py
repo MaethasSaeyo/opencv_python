@@ -1,20 +1,22 @@
 import cv2
-import numpy as np
+
+img = cv2.imread("image/boy.jpg")
+
+#อ่านไฟล์สำหรับ classifficaation
+face_cascade = cv2.CascadeClassifier("Detect/haarcascades_haarcascade_frontalface_default.xml")
+
+gray_img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+#จำแนกใบหน้า
+scaleFactor = 1.1
+minNeighber = 3
+face_detect = face_cascade.detectMultiScale(gray_img,scaleFactor,minNeighber)
+
+#แสดงตำแหน่งที่เจอในหน้า
+for (x,y,w,h) in face_detect:
+    cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),5)
 
 
-while True:
-    img = cv2.imread("image/ball2d.jpg")
-    img = cv2.resize(img,(400,400))
-    
-    #ช่วงของสี BGR
-    lower = np.array([5,111,10])
-    upper = np.array([124,255,133])
-
-    mask = cv2.inRange(img,lower,upper)
-    result = cv2.bitwise_and(img,img,mask=mask)
-    if cv2.waitKey(0) & 0xFFF == ord("e"):
-        break
-    cv2.imshow("Originl",img)
-    cv2.imshow("Mask",mask)
-    cv2.imshow("Resul",result)
-cv2.desttroyAllWindows()
+cv2.imshow("Output",img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
