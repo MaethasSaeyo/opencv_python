@@ -1,28 +1,20 @@
-#Mouse Event
 import cv2
 import numpy as np
-img =np.zeros([400,500,3])
-
-points = []
-
-def click(event,x,y,flags,param):
-    if event == cv2.EVENT_LBUTTONDOWN:
-        cv2.circle(img,(x,y),10,(0,0,255),4)
-        points.append((x,y))
-        if len(points) >= 2:
-            cv2.line(img,points[-2],points[-1],(255,0,80),5)
 
 
-        cv2.imshow("Output",img)
-        
+while True:
+    img = cv2.imread("image/ball2d.jpg")
+    img = cv2.resize(img,(400,400))
+    
+    #ช่วงของสี BGR
+    lower = np.array([5,111,10])
+    upper = np.array([124,255,133])
 
-
-
-cv2.imshow("Output",img)#แสดงผลภาพ
-
-#ทำงานกับmouse
-cv2.setMouseCallback("Output",click)
-
-
-cv2.waitKey(delay=0)
-cv2.destroyAllWindows()#คืนทรัพร์ยากรให้windows
+    mask = cv2.inRange(img,lower,upper)
+    result = cv2.bitwise_and(img,img,mask=mask)
+    if cv2.waitKey(0) & 0xFFF == ord("e"):
+        break
+    cv2.imshow("Originl",img)
+    cv2.imshow("Mask",mask)
+    cv2.imshow("Resul",result)
+cv2.desttroyAllWindows()
